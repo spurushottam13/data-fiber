@@ -1,5 +1,6 @@
 import Store from './store.js'
 import Collector from './collector.js'
+import Init from './init.js'
 window.Fabric = (function () {
 	console.log(":: Fabric initaited ::")
 	if (!window || !document) throw "Fabric only support browser enviroment"
@@ -30,8 +31,8 @@ window.Fabric = (function () {
 				(sameTagSiblings.length > 1 ? `[${idx + 1}]` : '')
 		}
 	}
-	Store.config({ sessionDOM: document.getElementsByTagName('html')[0]._fabricDom() })
 	return {
+		init: Init,
 		store: Store,
 		collector: Collector
 	}

@@ -1,12 +1,10 @@
 const Store = (function () {
 	const config = Symbol('config')
-	const location = Symbol('Location')
 	const store = {
-		[config]: {
-			[location]: window.location
-		}
+		[config]: {}
 	}
 	return {
+		store,
 		config(value) {
 			if (typeof value !== 'object') throw "[Fabric] (Store) dataType :only object vaild in init function"
 			store[config] = Object.assign(store[config], value)
