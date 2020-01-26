@@ -1,6 +1,6 @@
-import Store from './store.js'
-import Collector from './collector.js'
-import Init from './init.js'
+import Store from './modules/store.js'
+import Collector from './modules/collector.js'
+import Init from './modules/init.js'
 window.Fabric = (function () {
 	console.log(":: Fabric initaited ::")
 	if (!window || !document) throw "Fabric only support browser enviroment"
