@@ -17,7 +17,7 @@ window.Fabric = (function () {
 			children: this._haveChild() ? Array.from(this.children).map(i => i._fabricDom()) : this.innerHTML
 		}
 	}
-	Element.prototype._getElementXpath = function (element) {
+	Element.prototype._getElementXpath = function () {
 		if (!this) return null
 		if (this.tagName === 'BODY') {
 			return '/html/body'
@@ -34,6 +34,10 @@ window.Fabric = (function () {
 	return {
 		init: Init,
 		store: Store,
-		collector: Collector
+		collector: Collector,
+		addEvent: Store.addCustomEvent.bind(Store),
+		getEvent: Store.getCustomeEvent.bind(Store),
+		addUserInfo: Store.addUserInfo.bind(Store)
 	}
 })()
+Fabric.init({secretKey:23, startOnInit: false})

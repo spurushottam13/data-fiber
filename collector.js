@@ -11,7 +11,7 @@ const Collector = (function () {
 					...(relatedTarget && shouldCaptureDOM(type) && { relatedDOM: relatedTarget._getElementXpath() }),
 					...(target && shouldCaptureDOM(type) && { targetDOM: target._getElementXpath() })
 				}
-				Store.add(type, data)
+				Store.addNativeEvent({type,data})
 			}))
 		}
 	}
