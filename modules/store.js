@@ -41,7 +41,7 @@ const Store = (function () {
 			if (!store[nativeEvent][type]) {
 				store[nativeEvent][type] = []
 			}
-			store[nativeEvent][type].push(data)
+			store[nativeEvent][type].push({data, ts: new Date().getTime()})
 			this.sync()
 		},
 		addCustomEvent({ name, data }) {
@@ -50,7 +50,7 @@ const Store = (function () {
 			if (!store[customEvent][name]) {
 				store[customEvent][name] = []
 			}
-			store[customEvent][name].push(data)
+			store[customEvent][name].push({data, ts: new Date().getTime()})
 			this.sync()
 		},
 		getCustomeEvent(type) {
