@@ -14,7 +14,7 @@ const Store = (function () {
 	}
 	return {
 		store,
-		init({userId, secretKey, startOnInit}) {
+		init({ userId, secretKey, startOnInit }) {
 			store[config] = {
 				[_secretKey]: secretKey,
 				[_location]: window.location,
@@ -24,9 +24,9 @@ const Store = (function () {
 			}
 			store[config][isSafeToAddEvent] = Boolean(
 				!!store[config][_secretKey]
-				&& 
-				!!store[config][_userId] 
-				&& 
+				&&
+				!!store[config][_userId]
+				&&
 				!!store[config][_location]
 			)
 		},
@@ -35,18 +35,18 @@ const Store = (function () {
 			store[config] = Object.assign(store[config], value)
 			this.sync()
 		},
-		addNativeEvent({type, data}) {
+		addNativeEvent({ type, data }) {
 			if (!store[config][isSafeToAddEvent]) throw "[Fabric] (Store) callBeforeInit :store not initiated"
-			if(!Boolean(!!type  && !!data)) throw "[Fabric] (Store) => addNativeEvent :both type and data are required props"
+			if (!Boolean(!!type && !!data)) throw "[Fabric] (Store) => addNativeEvent :both type and data are required props"
 			if (!store[nativeEvent][type]) {
 				store[nativeEvent][type] = []
 			}
 			store[nativeEvent][type].push(data)
 			this.sync()
 		},
-		addCustomEvent({name, data}) {
+		addCustomEvent({ name, data }) {
 			if (!store[config][isSafeToAddEvent]) throw "[Fabric] (Store) callBeforeInit :store not initiated"
-			if(!Boolean(!!name && !!data)) throw "[Fabric] (Store) => addCustomeEvent :both name and data are required props"
+			if (!Boolean(!!name && !!data)) throw "[Fabric] (Store) => addCustomeEvent :both name and data are required props"
 			if (!store[customEvent][name]) {
 				store[customEvent][name] = []
 			}
