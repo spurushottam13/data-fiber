@@ -4,17 +4,13 @@ import Init from './modules/init.js'
 window.Fabric = (function () {
 	console.log(":: Fabric initaited ::")
 	if (!window || !document) throw "Fabric only support browser enviroment"
-	Element.prototype._getAttributes = function () {
-		return this.getAttributeNames().map(i => ({ [i]: this.getAttribute(i) }))
-	}
-	Element.prototype._haveChild = function () {
-		return !!this.children.length
-	}
 	Element.prototype._fabricDom = function () {
+		const haveChild = (ele) => !!ele.children.length
+		const getAttributes = (ele) => ele.getAttributeNames().map(i => ({ [i]: ele.getAttribute(i) }))
 		return {
 			type: this.nodeName,
-			props: this._getAttributes(),
-			children: this._haveChild() ? Array.from(this.children).map(i => i._fabricDom()) : this.innerHTML
+			props: getAttributes(this),
+			children: haveChild(this) ? Array.from(this.children).map(i => i._fabricDom()) : this.innerHTML
 		}
 	}
 	Element.prototype._getElementXpath = function () {
