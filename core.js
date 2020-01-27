@@ -1,6 +1,7 @@
 import Store from './modules/store.js'
 import Collector from './modules/collector.js'
 import Init from './modules/init.js'
+import CustomEvent from './modules/customEvent.js'
 window.Fabric = (function () {
 	console.log(":: Fabric initaited ::")
 	if (!window || !document) throw "Fabric only support browser enviroment"
@@ -31,8 +32,9 @@ window.Fabric = (function () {
 		init: Init,
 		store: Store,
 		collector: Collector,
-		addEvent: Store.addCustomEvent.bind(Store),
-		getEvent: Store.getCustomeEvent.bind(Store),
+		startNativeEvent: Collector.start.bind(Collector),
+		addEvent: CustomEvent.add.bind(CustomEvent),
+		getEvent: CustomEvent.get.bind(CustomEvent),
 		addUserInfo: Store.addUserInfo.bind(Store)
 	}
 })()

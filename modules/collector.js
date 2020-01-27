@@ -1,4 +1,4 @@
-import Store from './store.js'
+import NativeEvent from './nativeEvent.js'
 const Collector = (function () {
 	const events = ['mouseover', 'click', 'contextmenu']
 	const shouldCaptureDOM = (type) => ['click', 'contextmenu'].includes(type)
@@ -11,7 +11,8 @@ const Collector = (function () {
 					...(relatedTarget && shouldCaptureDOM(type) && { relatedDOM: relatedTarget._getElementXpath() }),
 					...(target && shouldCaptureDOM(type) && { targetDOM: target._getElementXpath() })
 				}
-				Store.addNativeEvent({ type, data })
+				console.log("called")
+				NativeEvent.add({ type, data })
 			}))
 		}
 	}
