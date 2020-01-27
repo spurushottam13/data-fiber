@@ -19,17 +19,22 @@ const Store = (function () {
 			store[config] = Object.assign(store[config], value)
 			this.sync()
 		},
-		createNode(nodeName,data){
+		createNode(nodeName,data = {}){
 			if (!store[config][isSafeToAddEvent]) throw "[Fabric] (Store) callBeforeInit :store not initiated"
-			store[nodeName] = data || {}
+			store[nodeName] = data
 			this.sync()
 		},
 		push(nodeName, key, data){
 			if(!store[nodeName]) throw "[Fabric] (Store: Push) node doest not exit in store"
-			if(!store[nodeName][key]){
-				store[nodeName][key] = []
+			if(key){
+				if(!store[nodeName][key]){
+					store[nodeName][key] = []
+				}
+				store[nodeName][key].push(data)
+			}else{
+				if(!Array.isArray(store[nodeName])) throw "[Fabric] (Store: Push) node is not array, provide key"
+				store[nodeName].push(data)
 			}
-			store[nodeName][key].push(data)
 			this.sync()
 		},
 		getNode(nodeName){
