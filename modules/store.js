@@ -1,29 +1,17 @@
-import UserIdentifer from "./userIdentifier.js"
 const Store = (function () {
 	const config = Symbol('Config')
-	const _location = Symbol('Location')
-	const _userId = Symbol('UserID')
-	const _secretKey = Symbol('Secret Key')
 	const isSafeToAddEvent = Symbol('isSafeToAddEvent')
 	const store = {
 		[config]: {},
 	}
 	return {
 		store,
-		init({ userId, secretKey, startOnInit }) {
-			store[config] = {
-				[_secretKey]: secretKey,
-				[_location]: window.location,
-				[_userId]: userId || UserIdentifer.getUserId(),
-				startOnInit: startOnInit === false ? startOnInit : true,
-				sessionDOM: document.getElementsByTagName('html')[0]._fabricDom()
-			}
+		init(data) {
+			store[config] = data
 			store[config][isSafeToAddEvent] = Boolean(
-				!!store[config][_secretKey]
+				!!store[config]['secretKey']
 				&&
-				!!store[config][_userId]
-				&&
-				!!store[config][_location]
+				!!store[config]['userId']
 			)
 		},
 		addUserInfo(value) {
