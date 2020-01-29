@@ -1,4 +1,5 @@
 import NativeEvent from './nativeEvent.js'
+import Utils from './utils.js'
 const Collector = (function () {
 	const events = ['mouseover', 'click', 'contextmenu']
 	const shouldCaptureDOM = (type) => ['click', 'contextmenu'].includes(type)
@@ -8,8 +9,8 @@ const Collector = (function () {
 				const { screenX, screenY, pageX, pageY, clientX, clientY, movementX, movementY, type, target, relatedTarget } = e
 				const data = {
 					position: { screenX, screenY, pageX, pageY, clientX, clientY, movementX, movementY },
-					...(relatedTarget && shouldCaptureDOM(type) && { relatedDOM: relatedTarget._getElementXpath() }),
-					...(target && shouldCaptureDOM(type) && { targetDOM: target._getElementXpath() })
+					...(relatedTarget && shouldCaptureDOM(type) && { relatedDOM: Utils.getXpath(relatedTarget) }),
+					...(target && shouldCaptureDOM(type) && { targetDOM: Utils.getXpath(target) })
 				}
 				console.log("called")
 				NativeEvent.add({ type, data })
