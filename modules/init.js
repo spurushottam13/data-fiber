@@ -1,6 +1,5 @@
 import Store from "./store.js"
 import Collector from "./collector.js"
-import UserIdentifer from "./userIdentifier.js"
 import Fingerprint from "./fingerprint.js"
 import Utils from "./utils.js"
 const Init = (function(){
@@ -9,7 +8,7 @@ const Init = (function(){
       if(!secretKey) throw "[data-fiber] (init) :secretKey is required parameter in init"
       Store.init({
          secretKey: secretKey,
-         userId: userId || UserIdentifer.getUserId(),
+         userId: userId || Utils.getUserId(),
          startOnInit: startOnInit === false ? startOnInit : true,
          sessionDOM: Utils.getDomAbstraction(document.getElementsByTagName('html')[0]),
          location: window.location,
