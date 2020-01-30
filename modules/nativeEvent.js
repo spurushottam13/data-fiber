@@ -1,16 +1,15 @@
 import Store from "./store.js"
 const NativeEvent = (function () {
-   const nativeEvent = Symbol('Native Event')
    return {
       add({ type, data }) {
          if (!Boolean(!!type && !!data)) throw "[Fabric] (Store) => addNativeEvent :both type and data are required props"
-         if (!Store.getNode(nativeEvent)) {
-            Store.createNode(nativeEvent)
+         if (!Store.getNode('nativeEvent')) {
+            Store.createNode('nativeEvent')
          }
-         Store.push(nativeEvent, type, { data, ts: new Date().getTime() })
+         Store.push('nativeEvent', type, { data, ts: new Date().getTime() })
       },
       get(type){
-         return Store.getNode(nativeEvent)[type]
+         return Store.getNode('nativeEvent')[type]
       }
    }
 })()
