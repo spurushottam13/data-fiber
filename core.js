@@ -16,7 +16,7 @@ window.Fabric = (function () {
 		getEvent: CustomEvent.get.bind(CustomEvent),
 		addUserInfo: Store.addUserInfo.bind(Store),
 		track: Track,
-		funnel: Funnel.bind(Funnel)
+		createFunnel: Funnel.bind(Funnel)
 	}
 })()
 Fabric.init({secretKey:23, startOnInit: false})

@@ -3,7 +3,6 @@ import Collector from "./collector.js"
 import Fingerprint from "./fingerprint.js"
 import Utils from "./utils.js"
 const Init = (function(){
-   console.log(Fingerprint)
    return function({userId, secretKey, startOnInit}){
       if(!secretKey) throw "[data-fiber] (init) :secretKey is required parameter in init"
       Store.init({
