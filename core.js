@@ -22,6 +22,7 @@ window.Fabric = (function () {
 		createFunnel: Funnel.bind(Funnel)
 	}
 })()
+const customBeacon = (e) => console.log("dfsdsdfdsfs",e)
 Fabric.init({secretKey:23, startOnInit: false, campaignTracker: ['x','y']})
 
 // const list = [

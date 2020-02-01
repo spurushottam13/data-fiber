@@ -39,6 +39,7 @@ const Store = (function () {
 			return store[nodeName]
 		},
 		sync() {
+			if(store.config.customBeacon) return store.config.customBeacon(store)
 			console.log("[:: sending to server ::]", store)
 		}
 	}
