@@ -6,6 +6,7 @@ import Track from './modules/track.js'
 import Funnel from './modules/funnel.js'
 import NativeTracker from './modules/startNativeTracker.js'
 import TrackStructEvent from './modules/trackStructEvent.js'
+import SessionRecording from "./modules/mutationObserver.js"
 window.Fabric = (function () {
 	console.log(":: Fabric initaited ::")
 	if (!window || !document) throw "Fabric only support browser enviroment"
@@ -19,7 +20,8 @@ window.Fabric = (function () {
 		addUserInfo: Store.addUserInfo.bind(Store),
 		track: Track,
 		trackStructEvent: TrackStructEvent.bind(TrackStructEvent),
-		createFunnel: Funnel.bind(Funnel)
+		createFunnel: Funnel.bind(Funnel),
+		record: SessionRecording
 	}
 })()
 const customBeacon = (e) => console.log("dfsdsdfdsfs",e)

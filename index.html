@@ -28,10 +28,20 @@
 
         <P> <B>This is a new paragraph!</B>
 
+            <p id="timer">__TIMER__</p>
+            <script>
+                function timer(){
+                    const ele =  document.getElementById('timer')
+                    ele.innerText = new Date().getTime()
+                }
+            </script>
+            <button onclick="timer()">Set TimeStamp</button>
+
             <BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
 
             <HR>
     <script type="module" src="core.js"></script>
+    <script type="module" src="app.js"></script>
 </BODY>
 
 </HTML>

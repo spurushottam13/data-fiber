@@ -22,6 +22,14 @@ const Store = (function () {
 			store[nodeName] = data
 			this.sync()
 		},
+		add(nodeName,data){
+			const node = Store.getNode(nodeName)
+			if(!node){
+				Store.createNode(nodeName, [data])
+			}else{
+				node.push(data)
+			}
+		},
 		push(nodeName, key, data){
 			if(!store[nodeName]) throw "[Fabric] (Store: Push) node doest not exit in store"
 			if(key){

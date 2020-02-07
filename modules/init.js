@@ -2,6 +2,7 @@ import Store from "./store.js"
 import Fingerprint from "./fingerprint.js"
 import Utils from "./utils.js"
 import NativeTracker from "./startNativeTracker.js"
+import SessionRecording from "./mutationObserver.js"
 const Init = (function(){
    return function({userId, secretKey, startOnInit, campaignTracker,customBeacon}){
       if(!secretKey) throw "[data-fiber] (init) :secretKey is required parameter in init"
@@ -20,6 +21,7 @@ const Init = (function(){
       if(startOnInit  === false ? startOnInit : true){
          NativeTracker.start()
       }
+      SessionRecording.start()
    }
 })()
 export default Init
