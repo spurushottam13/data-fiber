@@ -1,11 +1,9 @@
 import Store from "./store.js"
 
 const Track = (function(){
+   const trackStore = Store.createNode('track', true)
    return function(name){
-      if(!Store.getNode('track')){
-         Store.createNode('track', [])
-      }
-      Store.push('track',false,name)
+     trackStore.push({name, _ts: new Date().getTime()})
    }
 })()
 export default Track

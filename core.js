@@ -24,7 +24,6 @@ window.Fabric = (function () {
 		record: SessionRecording
 	}
 })()
-const customBeacon = (e) => console.log("dfsdsdfdsfs",e)
 Fabric.init({secretKey:23, startOnInit: false, campaignTracker: ['x','y']})
 
 // const list = [

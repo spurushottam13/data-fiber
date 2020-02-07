@@ -10,7 +10,7 @@ const CampaignTracker = (function () {
 		]))
 		console.log(allParams)
 		allParams.forEach(i => getURLParams(i) && (record[i] = getURLParams(i)))
-		Store.createNode('campaign', record)
+		Store.createNode('campaign', false, record)
 	}
 	return {start}
 })()

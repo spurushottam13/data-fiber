@@ -17,34 +17,28 @@ const Store = (function () {
 			store.config = Object.assign(store.config, value)
 			this.sync()
 		},
-		createNode(nodeName,data = {}){
-			if (!store.config.isSafeToAddEvent) throw "[Fabric] (Store) callBeforeInit :store not initiated"
-			store[nodeName] = data
-			this.sync()
-		},
-		add(nodeName,data){
-			const node = Store.getNode(nodeName)
-			if(!node){
-				Store.createNode(nodeName, [data])
-			}else{
-				node.push(data)
-			}
-		},
-		push(nodeName, key, data){
-			if(!store[nodeName]) throw "[Fabric] (Store: Push) node doest not exit in store"
-			if(key){
+		createNode(nodeName, isArray = false, data){
+			if(!nodeName) throw "[Fabric] (Store) required missing :nodeName is required props"
+			store[nodeName] = data ? data :  isArray ? [] : {}
+			const add = function(key, data){
 				if(!store[nodeName][key]){
-					store[nodeName][key] = []
+					store[nodeName][key] = [data]
+				}else{
+					store[nodeName][key].push(data)
 				}
-				store[nodeName][key].push(data)
-			}else{
-				if(!Array.isArray(store[nodeName])) throw "[Fabric] (Store: Push) node is not array, provide key"
+			}
+			const get = function(){
+				return store[nodeName]
+			}
+			const push = function(data){
+				if(!isArray) throw "[Fabric] (Store) not supported :node does not support push"
 				store[nodeName].push(data)
 			}
-			this.sync()
-		},
-		getNode(nodeName){
-			return store[nodeName]
+			return {
+				add,
+				get,
+				push
+			}
 		},
 		sync() {
 			if(store.config.customBeacon) return store.config.customBeacon(store)
