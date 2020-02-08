@@ -1,5 +1,5 @@
 import Store from "./store.js";
-
+import _TS from './_ts.js'
 const TrackStructEvent = (function(){
    const eventStore =  Store.createNode('trackStructEvent')
    return function(eleList){
@@ -8,7 +8,7 @@ const TrackStructEvent = (function(){
          const ele = document.querySelector(selector)
          if(ele){
             ele.addEventListener(type,function(){
-               eventStore.add(label, new Date().getTime())
+               eventStore.add(label, _TS())
             })
          } 
       });

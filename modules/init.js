@@ -1,4 +1,5 @@
 import Store from "./store.js"
+import _TS from './_ts.js'
 import Fingerprint from "./fingerprint.js"
 import Utils from "./utils.js"
 import NativeTracker from "./startNativeTracker.js"
@@ -10,7 +11,7 @@ const Init = (function(){
          secretKey,
          customBeacon,
          campaignTracker,
-         sessionTS: new Date().getTime(),
+         sessionTS: _TS(true),
          userId: userId || Utils.getUserId(),
          startOnInit: startOnInit === false ? startOnInit : true,
          sessionDOM: Utils.getDomAbstraction(document.getElementsByTagName('html')[0]),

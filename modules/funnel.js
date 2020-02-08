@@ -1,5 +1,5 @@
 import Store from "./store.js"
-
+import _TS from './_ts.js'
 const Funnel = (function () {
    const funnelStore = Store.createNode('funnel')
    return function (name, inital) {
@@ -9,15 +9,15 @@ const Funnel = (function () {
       if (!funnel[name]) {
          funnelStore.add(name, {
             init: Object.assign({
-               _createdTS: new Date().getTime()
+               _createdTS: _TS()
             }, inital),
             data: []
          })
       }
       return {
          add(tag, data) {
-            funnelStore.add(name, { data: { tagName: tag, data }, ts: new Date().getTime() })
-            // Store.getNode('funnel')[name].data.push({ data: {tagName: tag, data}, ts: new Date().getTime() })
+            funnelStore.add(name, { data: { tagName: tag, data }, ts: _TS() })
+            // Store.getNode('funnel')[name].data.push({ data: {tagName: tag, data}, ts: _TS() })
          }
       }
    }

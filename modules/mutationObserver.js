@@ -1,5 +1,6 @@
 import Utils from "./utils.js";
 import Store from "./store.js";
+import _TS from './_ts.js'
 
 const SessionRecording = (function () {
    const eventStore = Store.createNode('sessionRecording', true)
@@ -10,7 +11,7 @@ const SessionRecording = (function () {
          const result = {
             type: mutation.type,
             dom: Utils.getDomAbstraction(mutation.target),
-            _ts: new Date().getTime()
+            _ts: _TS()
          }
          eventStore.push(result)
       }
