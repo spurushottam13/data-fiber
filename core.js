@@ -25,18 +25,3 @@ window.Fabric = (function () {
 	}
 })()
 Fabric.init({secretKey:23, startOnInit: false, campaignTracker: ['x','y']})
-
-// const list = [
-// 	{
-// 		selector: 'body > h2',
-// 		type: 'mouseover',
-// 		label: 'Hover over H2 heading'
-// 	},
-// 	{
-// 		selector: 'body > p:nth-child(8) > b:nth-child(1)',
-// 		type: 'click',
-// 		label: 'Click on This is new para'
-// 	}
-// ]
-
-// Fabric.trackStructEvent(list)
