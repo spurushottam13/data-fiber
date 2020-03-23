@@ -1,10 +1,8 @@
-import Collector from "./collector.js"
-import CampaignTracker from "./campaign.js"
+import MouseEvent from "./tracker/mouseEvent.js"
 
 const NativeTracker  = function(){
    const start = () => {
-      Collector.start()
-      CampaignTracker.start()
+      MouseEvent.start()
    }
    return{start}
 }()

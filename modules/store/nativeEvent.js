@@ -1,5 +1,5 @@
 import Store from "./store.js"
-import _TS from './_ts.js'
+import _TS from '../functions/_ts.js'
 const NativeEvent = (function () {
    const eventStore = Store.createNode('nativeEvent')
    return {

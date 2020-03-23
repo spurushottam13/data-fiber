@@ -26,14 +26,16 @@ const Store = (function () {
 				}else{
 					store[nodeName][key].push(data)
 				}
-			}
+				this.sync(this[nodeName])
+			}.bind(this)
 			const get = function(){
 				return store[nodeName]
 			}
 			const push = function(data){
 				if(!isArray) throw "[Fabric] (Store) not supported :node does not support push"
 				store[nodeName].push(data)
-			}
+				this.sync(this[nodeName])
+			}.bind(this)
 			return {
 				add,
 				get,
@@ -43,9 +45,9 @@ const Store = (function () {
 		getNode(name){
 			return store[name]
 		},
-		sync() {
+		sync(name) {
 			if(store.config.customBeacon) return store.config.customBeacon(store)
-			console.log("[:: sending to server ::]", store)
+			console.log("[:: sending to server ::]", name)
 		}
 	}
 })()

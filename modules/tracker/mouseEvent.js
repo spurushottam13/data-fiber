@@ -1,6 +1,6 @@
-import NativeEvent from './nativeEvent.js'
-import Utils from './utils.js'
-const Collector = (function () {
+import NativeEvent from '../store/nativeEvent.js' 
+import Utils from '../functions/utils.js'
+const MouseEvent = (function () {
 	const events = ['mouseover', 'click', 'contextmenu']
 	const shouldCaptureDOM = (type) => ['click', 'contextmenu'].includes(type)
 	return {
@@ -19,4 +19,4 @@ const Collector = (function () {
 	}
 })()
 
-export default Collector
+export default MouseEvent

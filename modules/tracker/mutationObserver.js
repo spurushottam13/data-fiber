@@ -1,6 +1,6 @@
-import Utils from "./utils.js";
-import Store from "./store.js";
-import _TS from './_ts.js'
+import Utils from "../functions/utils.js";
+import Store from "../store/store.js";
+import _TS from '../functions/_ts.js'
 
 const SessionRecording = (function () {
    const eventStore = Store.createNode('sessionRecording', true)
