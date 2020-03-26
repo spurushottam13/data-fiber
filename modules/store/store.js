@@ -20,6 +20,7 @@ const Store = (function () {
 		createNode(nodeName, isArray = false, data){
 			if(!nodeName) throw "[Fabric] (Store) required missing :nodeName is required props"
 			store[nodeName] = data ? data :  isArray ? [] : {}
+			this.sync(nodeName, true)
 			const add = function(key, data){
 				if(!store[nodeName][key]){
 					store[nodeName][key] = [data]
@@ -45,9 +46,22 @@ const Store = (function () {
 		getNode(name){
 			return store[name]
 		},
-		sync(name) {
+		sync(name, isCreated = false) {
 			if(store.config.customBeacon) return store.config.customBeacon(store)
-			console.log("[:: sending to server ::]", name)
+			console.log("[:: sending to server ::]", name, isCreated)
+			if(name = 'staticData'){
+				
+				// Update the db
+				const data = {
+					clientId: "client4",
+					uid: "abc",
+					content: this.store.staticData || {}
+				}
+				if(this.store.ws){
+					const ws = this.store.ws
+					ws.send(JSON.stringify({type: 'staticData', data}))
+				}
+			}
 		}
 	}
 })()

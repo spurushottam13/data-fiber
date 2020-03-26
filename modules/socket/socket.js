@@ -5,6 +5,7 @@ const Socket = (function () {
          console.log("Socket Connected")
          resolve(connection)
       }
+      connection.onmessage = (message) => console.log('==>' + message.data)
       connection.onerror = () => reject
    })
 })()

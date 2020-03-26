@@ -11,7 +11,7 @@ window.Fabric = (function () {
 	if (!window || !document) throw "Fabric only support browser enviroment"
 	return {
 		init: Init,
-		store: Store,
+		store: Store.store,
 		mouseEvent: MouseEvent,
 		startNativeTracker: NativeTracker.start.bind(NativeTracker),
 		addEvent: CustomEvent.add.bind(CustomEvent),
