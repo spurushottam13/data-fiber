@@ -1,9 +1,9 @@
-import CampaignTracker from "./tracker/campaign.js"
-import Fingerprint from "./functions/fingerprint.js"
-import Store from "./store/store.js"
-import Utils from "./functions/utils.js"
-import Location from "./functions/location.js"
-import _TS from './functions/_ts.js'
+import CampaignTracker from "../tracker/campaign.js"
+import Fingerprint from "../functions/fingerprint.js"
+import Store from "./store.js"
+import Utils from "../functions/utils.js"
+import Location from "../functions/location.js"
+import _TS from '../functions/_ts.js'
 
 const StaticData = (function(){
    return {

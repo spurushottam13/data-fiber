@@ -22,4 +22,4 @@ window.Fabric = (function () {
 		record: SessionRecording
 	}
 })()
-Fabric.init({secretKey:23, startOnInit: false, campaignTracker: ['x','y']})
+Fabric.init({clientId:'Client27', startOnInit: false, campaignTracker: ['x','y']})

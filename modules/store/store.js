@@ -1,9 +1,13 @@
 const Store = (function () {
 	const store = {
-		config: {},
+		config: {isSyncActive: false}
 	}
 	return {
 		store,
+		startSync(){
+			this.store.config.isSyncActive = true
+			this.sync('_firstCall')
+		},
 		init(data) {
 			store.config = data
 			store.config.isSafeToAddEvent = Boolean(
@@ -20,7 +24,6 @@ const Store = (function () {
 		createNode(nodeName, isArray = false, data){
 			if(!nodeName) throw "[Fabric] (Store) required missing :nodeName is required props"
 			store[nodeName] = data ? data :  isArray ? [] : {}
-			this.sync(nodeName, true)
 			const add = function(key, data){
 				if(!store[nodeName][key]){
 					store[nodeName][key] = [data]
@@ -46,22 +49,26 @@ const Store = (function () {
 		getNode(name){
 			return store[name]
 		},
-		sync(name, isCreated = false) {
-			if(store.config.customBeacon) return store.config.customBeacon(store)
-			console.log("[:: sending to server ::]", name, isCreated)
-			if(name = 'staticData'){
-				
-				// Update the db
-				const data = {
-					clientId: "client4",
-					uid: "abc",
-					content: this.store.staticData || {}
-				}
-				if(this.store.ws){
-					const ws = this.store.ws
-					ws.send(JSON.stringify({type: 'staticData', data}))
-				}
+		sync(name) {
+			if(!store.config.isSyncActive) return
+			if(store.config.customBeacon) return store.config.customBeacon(name, store)
+			if(name === '_firstCall'){
+				console.log("[:: sending first-chunk ::]", store)
+				this.socketSend('staticData',store.staticData)
+				return
 			}
+		},
+		socketSend(type,data){
+			if(!type || !data) throw new Error('[Fabric] (Store) socketSend required two parameter')
+			const {ws} = store
+			ws.send(JSON.stringify({
+				type,
+				data: {
+					clientId: store.config.clientId,
+					uid: store.config.userId,
+					content: data
+				},
+			}))
 		}
 	}
 })()
