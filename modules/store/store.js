@@ -1,76 +1,101 @@
-const Store = (function () {
-	const store = {
-		config: {isSyncActive: false}
-	}
-	return {
-		store,
-		startSync(){
-			this.store.config.isSyncActive = true
-			this.sync('_firstCall')
+const safeSetting = {
+	writable: false,
+    configurable: false,
+	enumerable: false
+}
+const Store  = (function(){
+	return Object.defineProperties({}, {
+		config: {
+			...safeSetting,
+			value: {isSyncActive: false}
 		},
-		init(data) {
-			store.config = data
-			store.config.isSafeToAddEvent = Boolean(
-				!!store.config['secretKey']
-				&&
-				!!store.config['userId']
-			)
+		startSync: {
+			...safeSetting,
+			value: function(){
+				this.config.isSyncActive = true,
+				this.sync('_firstCall')
+			}
 		},
-		addUserInfo(value) {
-			if (typeof value !== 'object') throw "[Fabric] (Store) dataType :only object vaild in init function"
-			store.config = Object.assign(store.config, value)
-			this.sync()
+		init: {
+			...safeSetting,
+			value: function(data){
+				Object.assign(this.config, data)
+				this.config.isSafeToAddEvent = Boolean(
+					!!this.config['secretKey']
+					&&
+					!!this.config['userId']
+				)
+			}
 		},
-		createNode(nodeName, isArray = false, data){
-			if(!nodeName) throw "[Fabric] (Store) required missing :nodeName is required props"
-			store[nodeName] = data ? data :  isArray ? [] : {}
-			const add = function(key, data){
-				if(!store[nodeName][key]){
-					store[nodeName][key] = [data]
-				}else{
-					store[nodeName][key].push(data)
+		addUserInfo: {
+			...safeSetting,
+			value: function(value){
+				if (typeof value !== 'object') throw "[Fabric] (Store) dataType :only object vaild in init function"
+				this.config = Object.assign(this.config, value)
+				this.sync()
+			}
+		},
+		createNode: {
+			...safeSetting,
+			value: function(nodeName, data){
+				if(!nodeName) throw "[Fabric] (Store) required missing :nodeName is required props"
+				this[nodeName] = data ? data : {}
+				const add = function(key, data){
+					if(!this[nodeName][key]){
+						this[nodeName][key] = [data]
+					}else{
+						this[nodeName][key].push(data)
+					}
+					this.sync(this[nodeName])
+				}.bind(this)
+				const get = function(){
+					return this[nodeName]
 				}
-				this.sync(this[nodeName])
-			}.bind(this)
-			const get = function(){
-				return store[nodeName]
-			}
-			const push = function(data){
-				if(!isArray) throw "[Fabric] (Store) not supported :node does not support push"
-				store[nodeName].push(data)
-				this.sync(this[nodeName])
-			}.bind(this)
-			return {
-				add,
-				get,
-				push
+				const push = function(data){
+					if(!Array.isArray(data)) throw "[Fabric] (Store) not supported :node does not support push"
+					this[nodeName].push(data)
+					this.sync(this[nodeName])
+				}.bind(this)
+				return {
+					add,
+					get,
+					push
+				}
 			}
 		},
-		getNode(name){
-			return store[name]
-		},
-		sync(name) {
-			if(!store.config.isSyncActive) return
-			if(store.config.customBeacon) return store.config.customBeacon(name, store)
-			if(name === '_firstCall'){
-				console.log("[:: sending first-chunk ::]", store)
-				this.socketSend('staticData',store.staticData)
-				return
+		getNode: {
+			...safeSetting,
+			value: function(name){
+				return this[name]
 			}
 		},
-		socketSend(type,data){
-			if(!type || !data) throw new Error('[Fabric] (Store) socketSend required two parameter')
-			const {ws} = store
-			ws.send(JSON.stringify({
-				type,
-				data: {
-					clientId: store.config.clientId,
-					uid: store.config.userId,
-					content: data
-				},
-			}))
+		sync: {
+			...safeSetting,
+			value: function(name) {
+				if(!this.config.isSyncActive) return
+				if(this.config.customBeacon) return this.config.customBeacon(name, this)
+				if(name === '_firstCall'){
+					console.log("[:: sending first-chunk ::]", this)
+					this.socketSend('staticData',this.staticData)
+					return
+				}
+			}
+		},
+		socketSend: {
+			...safeSetting,
+			value: function(type,data){
+				if(!type || !data) throw new Error('[Fabric] (Store) socketSend required two parameter')
+				const ws = this.ws
+				ws.send(JSON.stringify({
+					type,
+					data: {
+						clientId: this.config.clientId,
+						uid: this.config.userId,
+						content: data
+					},
+				}))
+			}
 		}
-	}
+	})
 })()
-
 export default Store

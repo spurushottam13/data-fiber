@@ -22,7 +22,7 @@ const Init = (function(){
          SessionRecording.start()
       }
       const ws = await Socket({url: 'ws://localhost:3000'})
-      Store.createNode('ws', false, ws)
+      Store.createNode('ws',ws)
       Store.startSync()
    }
 })()

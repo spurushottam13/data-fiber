@@ -20,7 +20,7 @@ const StaticData = (function(){
       }),
       insert: async() => {
          const staticData = await StaticData.get()
-         Store.createNode('staticData', false, staticData)
+         Store.createNode('staticData', staticData)
       }
    }
 })()

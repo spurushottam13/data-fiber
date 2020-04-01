@@ -3,7 +3,7 @@ import Store from "../store/store.js";
 import _TS from '../functions/_ts.js'
 
 const SessionRecording = (function () {
-   const eventStore = Store.createNode('sessionRecording', true)
+   const eventStore = Store.createNode('sessionRecording', [])
    const targetNode = document;
    const config = { attributes: true, childList: true, subtree: true };
    const callback = function (mutationsList, observer) {
