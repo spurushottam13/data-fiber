@@ -52,7 +52,7 @@ const Store  = (function(){
 					return this[nodeName]
 				}
 				const push = function(data){
-					if(!Array.isArray(data)) throw "[Fabric] (Store) not supported :node does not support push"
+					if(!Array.isArray(this[nodeName])) throw "[Fabric] (Store) not supported :node does not support push"
 					this[nodeName].push(data)
 					this.sync(this[nodeName])
 				}.bind(this)
