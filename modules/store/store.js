@@ -91,7 +91,11 @@ const Store  = (function(){
 					data: {
 						clientId: this.config.clientId,
 						uid: this.config.userId,
-						content: data
+						content: data,
+						_date: {
+							month: "M-" + new Date().getMonth(),
+							date: "D-" + new Date().getDate()
+						}
 					},
 				}))
 			}
