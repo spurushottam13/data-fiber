@@ -27,14 +27,6 @@ const Store  = (function(){
 				)
 			}
 		},
-		addUserInfo: {
-			...safeSetting,
-			value: function(value){
-				if (typeof value !== 'object') throw "[Fabric] (Store) dataType :only object vaild in init function"
-				this.config = Object.assign(this.config, value)
-				this.sync()
-			}
-		},
 		createNode: {
 			...safeSetting,
 			value: function(nodeName, data){

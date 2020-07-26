@@ -4,12 +4,13 @@ import Store from "./store.js"
 import Utils from "../functions/utils.js"
 import Location from "../functions/location.js"
 import _TS from '../functions/_ts.js'
+import DeviceInfo from "../functions/deviceInfo.js"
 
 const StaticData = (function(){
    return {
       get: async () => ({
-         fingerprint: Fingerprint.fingerprintId,
-         deviceInfo: Fingerprint.deviceInfo,
+         fingerprint: await Fingerprint.get(),
+         deviceInfo: DeviceInfo.get(),
          topPage: window.location.pathname,
          browser:"Chrome",
          browserLocation: window.location,

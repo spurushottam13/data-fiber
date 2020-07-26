@@ -13,16 +13,21 @@ const Init = (function(){
          customBeacon,
          campaignTracker,
          sessionTS: _TS(true),
-         userId: userId || Utils.getUserId(),
+         userId: Utils.getUserId().userId,
          startOnInit: startOnInit === false ? startOnInit : true,
       })
-      await StaticData.insert()
+      console.log(Utils.getUserId())
+      if(Utils.getUserId().isFresh){
+         await StaticData.insert()
+      }else{
+         console.log("NO MOR")
+      }
       if(startOnInit){
          NativeTracker.start()
          SessionRecording.start()
       }
-      const ws = await Socket({url: 'ws://localhost:3000'})
-      Store.createNode('ws',ws)
+      // const ws = await Socket({url: 'ws://localhost:3000'})
+      // Store.createNode('ws',ws)
       Store.startSync()
    }
 })()

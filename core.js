@@ -16,7 +16,6 @@ window.Fabric = (function () {
 		startNativeTracker: NativeTracker.start.bind(NativeTracker),
 		addEvent: CustomEvent.add.bind(CustomEvent),
 		getEvent: CustomEvent.get.bind(CustomEvent),
-		addUserInfo: Store.addUserInfo.bind(Store),
 		track: Track,
 		createFunnel: Funnel.bind(Funnel),
 		record: SessionRecording

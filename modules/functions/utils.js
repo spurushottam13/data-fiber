@@ -23,12 +23,20 @@ const Utils = (function () {
 			children: haveChild(ele) ? Array.from(ele.childNodes).map(i => getDomAbstraction(i)) : ele.nodeType === Node.TEXT_NODE ? ele.nodeValue : ele.innerHTML
 		}
 	}
-	const getUserId = () => {
-		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+
+	const generateUUID = () => {
+		const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 			var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
 			return v.toString(16);
-		});
-	}
+		})
+		sessionStorage.setItem('FABRIC_SESSION_ID', uuid)
+		return uuid
+	} 
+
+	const getUserId = () => ({
+		userId : sessionStorage.getItem('FABRIC_SESSION_ID') ? sessionStorage.getItem('FABRIC_SESSION_ID') : generateUUID(),
+		isFresh: !Boolean(sessionStorage.getItem('FABRIC_SESSION_ID'))
+	})
 	return {
 		resolvePath,
 		getXpath,
